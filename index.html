@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Francisco Bretal</title>
+<meta name="description" content="Francisco Bretal, ingeniero de software especializado en rendimiento, resiliencia y arquitectura.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F4F6;
+    --ink: #12161C;
+    --ink-2: #5B6472;
+    --rule: #DDE0E5;
+    --faint: #C3C8D0;
+    --track: #E7E9ED;
+    --accent: #2346E8;
+    --alert: #E5484D;
+
+    --gutter: clamp(16px, 5vw, 64px);
+    --max: 1240px;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --sans: "Funnel Sans", system-ui, sans-serif;
+    --display: "Funnel Display", "Funnel Sans", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0C0E12;
+      --ink: #E9ECF1;
+      --ink-2: #8C95A3;
+      --rule: #222730;
+      --faint: #3A414D;
+      --track: #171B21;
+      --accent: #7C97FF;
+      --alert: #FF6369;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0C0E12;
+    --ink: #E9ECF1;
+    --ink-2: #8C95A3;
+    --rule: #222730;
+    --faint: #3A414D;
+    --track: #171B21;
+    --accent: #7C97FF;
+    --alert: #FF6369;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Header */
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 28px; padding-bottom: 28px;
+    font-family: var(--mono); font-size: 13px; color: var(--ink-2);
+  }
+  .lang { display: flex; gap: 2px; }
+  .lang button {
+    font: inherit; color: var(--ink-2); background: none; border: 0;
+    padding: 6px 10px; border-radius: 6px; cursor: pointer; min-height: 32px;
+  }
+  .lang button[aria-pressed="true"] { color: var(--ink); background: var(--track); }
+
+  /* Hero: the service map runs quietly behind the text */
+  .hero { position: relative; overflow: hidden; min-height: min(100svh, 920px); display: flex; flex-direction: column; }
+  .hero .top { position: relative; width: 100%; }
+  .hero canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.4) 36%, #000 72%);
+            mask-image: linear-gradient(90deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.4) 36%, #000 72%);
+  }
+  .hero-inner {
+    position: relative; flex: 1; width: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 40px; padding-bottom: 80px;
+  }
+  .name {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(56px, 8.6vw, 124px);
+    line-height: .92; letter-spacing: -0.045em;
+  }
+  .name span { display: block; }
+  .lead {
+    margin-top: clamp(28px, 3.6vw, 40px);
+    max-width: 32ch;
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: 1.42;
+    text-wrap: pretty;
+  }
+  .now { margin-top: 18px; font-family: var(--mono); font-size: 14px; color: var(--accent); }
+
+  .social { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero .social { margin-top: 36px; }
+  .social a {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 14px;
+    border: 1px solid var(--rule); border-radius: 10px; background: var(--paper);
+    color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 500;
+    transition: border-color .2s ease;
+  }
+  .social a:hover { border-color: var(--accent); color: var(--accent); }
+  .social svg { width: 18px; height: 18px; flex: none; fill: currentColor; }
+  .social svg.line { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+
+  /* Sections */
+  .section { padding-top: clamp(56px, 8vw, 96px); padding-bottom: clamp(56px, 8vw, 96px); border-top: 1px solid var(--rule); }
+  .h2 {
+    font-family: var(--display);
+    font-weight: 560; font-size: clamp(30px, 3.6vw, 44px);
+    letter-spacing: -0.03em; line-height: 1.1;
+  }
+  .sub { margin-top: 10px; color: var(--ink-2); max-width: 56ch; }
+
+  /* Practice: each area with the chart that belongs to it */
+  .practice { margin-top: 40px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 5vw, 72px); }
+  .area { padding: 32px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 132px; gap: 8px 24px; align-items: start; }
+  .area h3 { font-family: var(--display); font-weight: 560; font-size: 23px; letter-spacing: -0.02em; }
+  .area p { grid-column: 1; color: var(--ink); text-wrap: pretty; }
+  .area svg { grid-column: 2; grid-row: 1 / span 2; width: 132px; height: 64px; overflow: visible; }
+  .area svg .ln { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+  .area svg .thin { fill: none; stroke: var(--faint); stroke-width: 1; }
+  .area svg .edge { fill: none; stroke: var(--ink-2); stroke-width: 1; }
+  .area svg .dash { fill: none; stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+  .area svg .soft { fill: var(--faint); }
+  .area svg .bad { fill: var(--alert); }
+  .area svg .node { fill: var(--paper); stroke: var(--accent); stroke-width: 1.5; }
+  .area svg text { font: 500 9px var(--mono); fill: var(--ink-2); }
+
+  /* Trace */
+  .trace { margin-top: 40px; }
+  .rows { position: relative; }
+  .axis, .row, .grid-lines {
+    display: grid;
+    grid-template-columns: minmax(240px, 30%) 1fr 104px;
+    align-items: center;
+  }
+  .axis { height: 36px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+  .axis .ticks { position: relative; height: 100%; }
+  .axis .ticks span { position: absolute; top: 10px; transform: translateX(-50%); }
+  .grid-lines { position: absolute; inset: 0; pointer-events: none; align-items: stretch; }
+  .grid-lines div { position: relative; grid-column: 2; }
+  .grid-lines i { position: absolute; top: 36px; bottom: 0; width: 1px; background: var(--rule); }
+  .grid-lines i.today { background: var(--ink-2); }
+  .grid-lines b { position: absolute; top: 10px; transform: translateX(-50%); font: 500 12px var(--mono); color: var(--ink); }
+
+  .row {
+    position: relative; width: 100%; min-height: 60px;
+    border: 0; background: none; color: inherit; font: inherit; text-align: left;
+    cursor: pointer; border-radius: 8px;
+  }
+  .row:hover, .row[aria-expanded="true"] { background: var(--track); }
+  div.row { cursor: default; }
+  div.row:hover { background: none; }
+  .label { display: flex; align-items: center; gap: 8px; padding: 10px 16px 10px 12px; min-width: 0; }
+  .txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+  .label .org { font-weight: 620; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .label .role { color: var(--ink-2); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row.child .label { padding-left: 34px; }
+  .row.child .label .org { white-space: normal; }
+  .row.child .label::before {
+    content: ""; flex: none; width: 12px; height: 12px; margin-right: 2px;
+    border-left: 1px solid var(--ink-2); border-bottom: 1px solid var(--ink-2);
+    transform: translateY(-4px); opacity: .5;
+  }
+  .lane { position: relative; height: 100%; min-height: 48px; }
+  .bar { position: absolute; top: 50%; height: 12px; margin-top: -6px; border-radius: 2px; background: var(--ink); transform-origin: left center; }
+  .bar.edu { background: var(--faint); }
+  .bar.group { height: 4px; margin-top: -2px; background: var(--ink-2); }
+  .bar.current { background: var(--accent); }
+  .bar.open { border-radius: 2px 0 0 2px; }
+  .bar.open::after {
+    content: ""; position: absolute; left: 100%; top: 0; bottom: 0; width: 20px;
+    background: linear-gradient(90deg, currentColor, transparent);
+  }
+  .bar.current.open { color: var(--accent); }
+  .bar.group.open { color: var(--ink-2); }
+  .dur { font-family: var(--mono); font-size: 13px; color: var(--ink-2); text-align: right; padding-right: 12px; white-space: nowrap; }
+
+  .detail { display: grid; grid-template-columns: minmax(240px, 30%) 1fr; padding: 20px 12px 28px; border-bottom: 1px solid var(--rule); }
+  .detail[hidden] { display: none; }
+  .attrs { font-family: var(--mono); font-size: 13px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-content: start; padding-right: 24px; }
+  .attrs dt { color: var(--ink-2); }
+  .notes { list-style: none; display: grid; gap: 8px; max-width: 62ch; }
+  .notes li { padding-left: 18px; position: relative; text-wrap: pretty; }
+  .notes li::before { content: "–"; position: absolute; left: 0; color: var(--ink-2); }
+
+  .legend { display: flex; gap: 20px; margin-top: 16px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .legend i { width: 18px; height: 8px; border-radius: 2px; background: var(--ink); }
+  .legend i.edu { background: var(--faint); }
+  .legend i.group { height: 4px; background: var(--ink-2); }
+  .legend i.current { background: var(--accent); }
+
+  /* Contact */
+  .contact .mail {
+    display: inline-block; margin-top: 28px;
+    font-family: var(--display); font-weight: 560;
+    font-size: clamp(26px, 5.4vw, 68px); letter-spacing: -0.04em; line-height: 1;
+    text-decoration: none; overflow-wrap: anywhere;
+    background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 3px no-repeat;
+    padding-bottom: 8px; transition: background-size .3s ease;
+  }
+  .contact .mail:hover, .contact .mail:focus-visible { background-size: 100% 3px; color: var(--accent); }
+  .contact .social { margin-top: 32px; }
+  footer { padding-top: 28px; padding-bottom: 40px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--rule); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .bar { animation: draw .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--delay, 0ms); }
+    @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+
+  @media (max-width: 960px) {
+    .name { font-size: clamp(52px, 15vw, 124px); }
+    .hero canvas {
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.25) 60%, #000 85%);
+              mask-image: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.25) 60%, #000 85%);
+    }
+    .hero-inner { justify-content: flex-start; padding-top: 32px; padding-bottom: 200px; }
+    .practice { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .axis, .grid-lines { grid-template-columns: 0 1fr 84px; }
+    .row { grid-template-areas: "label label" "lane dur"; grid-template-columns: 1fr 84px; min-height: 0; padding: 6px 0; }
+    .label { grid-area: label; padding: 6px 8px 0; }
+    .label .org, .label .role { white-space: normal; }
+    .row.child .label { padding-left: 24px; }
+    .row.child .label::before { display: none; }
+    .lane { grid-area: lane; min-height: 28px; }
+    .dur { grid-area: dur; }
+    .ticks span:last-child { display: none; }
+    .detail { grid-template-columns: 1fr; gap: 16px; }
+    .attrs { padding-right: 0; }
+    .area { grid-template-columns: 1fr; }
+    .area svg { grid-column: 1; grid-row: auto; margin-top: 8px; }
+    .contact .mail { font-size: clamp(24px, 7.4vw, 40px); }
+  }
+</style>
+</head>
+<body>
+
+  <main>
+    <section class="hero">
+      <canvas id="net" aria-hidden="true"></canvas>
+      <header class="wrap top">
+        <span>franciscobretal.com</span>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </header>
+      <div class="wrap hero-inner">
+        <h1 class="name"><span>Francisco</span><span>Bretal</span></h1>
+        <p class="lead" data-i18n="lead"></p>
+        <p class="now" data-i18n="now"></p>
+        <nav class="social" aria-label="Contacto">
+          <a href="#" data-mail><svg class="line" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg><span data-i18n="email"></span></a>
+          <a href="https://www.linkedin.com/in/franciscobretal" rel="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+          <a href="https://github.com/franciscobretal" rel="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57l-.02-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .32.21.69.82.57A12 12 0 0 0 12 .3"/></svg>GitHub</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="wrap section" aria-labelledby="practice-title">
+      <h2 class="h2" id="practice-title" data-i18n="practiceTitle"></h2>
+      <div class="practice">
+        <div class="area">
+          <h3 data-i18n="p1t"></h3><p data-i18n="p1"></p>
+          <svg viewBox="0 0 132 64" aria-hidden="true">
+            <line class="dash" x1="0" y1="18" x2="132" y2="18"/>
+            <text x="132" y="12" text-anchor="end">SLO</text>
+            <path class="ln" d="M0 46 L11 42 L22 44 L33 36 L44 40 L55 33 L66 38 L77 30 L88 35 L99 28 L110 33 L121 30 L132 34"/>
+          </svg>
+        </div>
+        <div class="area">
+          <h3 data-i18n="p2t"></h3><p data-i18n="p2"></p>
+          <svg viewBox="0 0 132 64" aria-hidden="true">
+            <g class="soft" style="fill: var(--accent); opacity: .35">
+              <rect x="0" y="50" width="8" height="12"/><rect x="11" y="34" width="8" height="28"/><rect x="22" y="18" width="8" height="44"/><rect x="33" y="10" width="8" height="52"/><rect x="44" y="20" width="8" height="42"/><rect x="55" y="32" width="8" height="30"/><rect x="66" y="40" width="8" height="22"/><rect x="77" y="46" width="8" height="16"/><rect x="88" y="51" width="8" height="11"/><rect x="99" y="54" width="8" height="8"/><rect x="110" y="56" width="8" height="6"/><rect x="121" y="58" width="8" height="4"/>
+            </g>
+            <line class="thin" x1="0" y1="62.5" x2="132" y2="62.5" style="stroke: var(--ink-2)"/>
+            <line class="dash" x1="114" y1="4" x2="114" y2="62"/>
+            <text x="110" y="10" text-anchor="end">p99</text>
+          </svg>
+        </div>
+        <div class="area">
+          <h3 data-i18n="p3t"></h3><p data-i18n="p3"></p>
+          <svg viewBox="0 0 132 64" aria-hidden="true">
+            <line class="thin" x1="0" y1="20" x2="132" y2="20"/>
+            <path class="ln" d="M0 20 H46 L52 52 L58 50 L66 36 L78 26 L92 21 L104 20 H132"/>
+            <circle class="bad" cx="52" cy="52" r="3.5"/>
+          </svg>
+        </div>
+        <div class="area">
+          <h3 data-i18n="p4t"></h3><p data-i18n="p4"></p>
+          <svg viewBox="0 0 132 64" aria-hidden="true">
+            <path class="edge" d="M8 32 C26 32 26 12 46 12 M8 32 C26 32 26 52 46 52 M46 12 C66 12 66 32 86 32 M46 52 C66 52 66 32 86 32 M86 32 C104 32 104 14 124 14 M86 32 C104 32 104 50 124 50"/>
+            <circle class="node" cx="8" cy="32" r="4.5"/><circle class="node" cx="46" cy="12" r="4.5"/><circle class="node" cx="46" cy="52" r="4.5"/>
+            <circle class="node" cx="86" cy="32" r="4.5"/><circle class="node" cx="124" cy="14" r="4.5"/><circle class="node" cx="124" cy="50" r="4.5"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" aria-labelledby="career-title">
+      <h2 class="h2" id="career-title" data-i18n="careerTitle"></h2>
+      <p class="sub" data-i18n="careerSub"></p>
+      <div class="trace">
+        <div class="rows" id="rows">
+          <div class="grid-lines" aria-hidden="true"><span></span><div id="grid"></div></div>
+          <div class="axis" aria-hidden="true"><span></span><div class="ticks" id="ticks"></div><span></span></div>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span><i class="group"></i><span data-i18n="legendGroup"></span></span>
+          <span><i></i><span data-i18n="legendWork"></span></span>
+          <span><i class="current"></i><span data-i18n="legendNow"></span></span>
+          <span><i class="edu"></i><span data-i18n="legendEdu"></span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section contact" aria-labelledby="contact-title">
+      <h2 class="h2" id="contact-title" data-i18n="contactTitle"></h2>
+      <p class="sub" data-i18n="contactSub"></p>
+      <a class="mail" href="#" data-mail="show"></a>
+      <noscript><p class="sub">Activa JavaScript para ver la dirección de correo.</p></noscript>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/franciscobretal" rel="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+        <a href="https://github.com/franciscobretal" rel="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57l-.02-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .32.21.69.82.57A12 12 0 0 0 12 .3"/></svg>GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">© 2026 Francisco Bretal</footer>
+
+<script>
+const copy = {
+  es: {
+    lead: "Ingeniero de software especializado en rendimiento, resiliencia y arquitectura. Me encargo de que los sistemas estén siempre disponibles: defino su observabilidad y sus SLO, y ayudo a los equipos de desarrollo a aplicar buenas prácticas.",
+    now: "Responsable de Observabilidad de eCommerce en Inditex",
+    email: "Correo",
+    contactSub: "Para asuntos profesionales, puedes escribirme por correo o encontrarme en LinkedIn.",
+    practiceTitle: "En qué trabajo",
+    p1t: "Observabilidad", p1: "Definir los SLI y SLO que indican si una tienda funciona bien, y montar las herramientas para vigilarlos sin que nadie acabe ahogado en alertas.",
+    p2t: "Rendimiento", p2: "Pruebas de carga de millones de peticiones por minuto y, después, trabajo con los equipos de desarrollo para ver dónde se pierde el tiempo y recuperarlo.",
+    p3t: "Resiliencia", p3: "Pruebas de caos para dar con los puntos débiles antes de que lo hagan los clientes, y Game Days para que cada equipo sepa reaccionar cuando falla su servicio.",
+    p4t: "Arquitectura", p4: "Diseñar sistemas que se puedan medir y entender desde el primer día, con límites claros y pensando de antemano en cómo pueden fallar.",
+    careerTitle: "Trayectoria",
+    careerSub: "Dónde he trabajado y estudiado hasta ahora.",
+    legendGroup: "empresa", legendWork: "puesto", legendNow: "puesto actual", legendEdu: "formación",
+    today: "hoy",
+    contactTitle: "Contacto",
+    k: { org: "empresa", role: "puesto", place: "lugar", period: "periodo", skills: "tecnologías" },
+    present: "actualidad", y: "a", m: "m"
+  },
+  en: {
+    lead: "Software engineer specializing in performance, resilience and architecture. I make sure systems stay up: I define their observability and SLOs, and help development teams adopt best practices.",
+    now: "Head of eCommerce Observability at Inditex",
+    email: "Email",
+    contactSub: "For professional matters, you can reach me by email or find me on LinkedIn.",
+    practiceTitle: "What I work on",
+    p1t: "Observability", p1: "Defining the SLIs and SLOs that say whether a store is healthy, and building the tools to watch them without drowning anyone in alerts.",
+    p2t: "Performance", p2: "Load tests at millions of requests per minute, then the work with teams that follows: finding where the time goes and getting it back.",
+    p3t: "Resilience", p3: "Chaos tests that find weak points before customers do, and Game Days so every team knows how to respond when its service fails.",
+    p4t: "Architecture", p4: "Systems whose behavior can be measured and reasoned about from day one: clear boundaries, failure modes planned for, nothing left to luck.",
+    careerTitle: "Career",
+    careerSub: "Where I've worked and studied so far.",
+    legendGroup: "company", legendWork: "role", legendNow: "current role", legendEdu: "education",
+    today: "now",
+    contactTitle: "Contact",
+    k: { org: "company", role: "role", place: "location", period: "period", skills: "stack" },
+    present: "present", y: "y", m: "mo"
+  }
+};
+let lang = "es";
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Service map (hero background) ---------- */
+const net = (() => {
+  const canvas = document.getElementById("net");
+  const ctx = canvas.getContext("2d");
+
+  const nodes = {
+    u1: { x: 0, y: .16, user: true }, u2: { x: 0, y: .4, user: true }, u3: { x: 0, y: .64, user: true }, u4: { x: 0, y: .88, user: true },
+    edge: { x: .22, y: .52 },
+    "gw-a": { x: .45, y: .3 }, "gw-b": { x: .45, y: .74 },
+    catalog: { x: .72, y: .06 }, pricing: { x: .72, y: .24 }, cart: { x: .72, y: .42 },
+    checkout: { x: .72, y: .6 }, stock: { x: .72, y: .78 }, search: { x: .72, y: .96 },
+    "db-1": { x: 1, y: .14 }, cache: { x: 1, y: .4 }, "db-2": { x: 1, y: .66 }, queue: { x: 1, y: .9 }
+  };
+  const dataOf = {
+    catalog: ["db-1", "cache"], pricing: ["cache", "db-1"], cart: ["cache", "db-2"],
+    checkout: ["db-2", "queue"], stock: ["db-2", "queue"], search: ["cache", "db-1"]
+  };
+  const services = Object.keys(dataOf);
+  const users = ["u1", "u2", "u3", "u4"];
+  const edges = [
+    ...users.map(u => [u, "edge"]), ["edge", "gw-a"], ["edge", "gw-b"],
+    ...["gw-a", "gw-b"].flatMap(g => services.map(s => [g, s])),
+    ...services.flatMap(s => dataOf[s].map(d => [s, d]))
+  ];
+  const health = Object.fromEntries(Object.keys(nodes).map(id => [id, { now: 1, target: 1, until: 0 }]));
+  let particles = [], W = 0, H = 0, box = {}, colors = {}, clock = 0, lastChaos = 0, running = false;
+
+  const readColors = () => {
+    const cs = getComputedStyle(document.documentElement);
+    ["ink-2", "faint", "accent", "alert", "paper"].forEach(k => { colors[k] = cs.getPropertyValue(`--${k}`).trim(); });
+  };
+  const P = id => ({ x: box.x0 + nodes[id].x * (box.x1 - box.x0), y: box.y0 + nodes[id].y * (box.y1 - box.y0) });
+  const curve = (a, b, t) => {
+    const p0 = P(a), p3 = P(b), mx = (p0.x + p3.x) / 2, u = 1 - t;
+    return {
+      x: u * u * u * p0.x + 3 * u * u * t * mx + 3 * u * t * t * mx + t * t * t * p3.x,
+      y: u * u * u * p0.y + 3 * u * u * t * p0.y + 3 * u * t * t * p3.y + t * t * t * p3.y
+    };
+  };
+  const isDown = id => health[id].target === 0;
+  const randomOf = list => list[Math.floor(Math.random() * list.length)];
+  const length = (a, b) => Math.hypot(P(b).x - P(a).x, P(b).y - P(a).y) * 1.1;
+
+  const pickHealthy = options => {
+    const healthy = options.filter(o => !isDown(o));
+    return healthy.length ? randomOf(healthy) : null;
+  };
+  const nextHop = p => {
+    if (p.to === "edge") return pickHealthy(["gw-a", "gw-b"]);
+    if (p.to.startsWith("gw")) return isDown(p.target) ? null : p.target;
+    if (dataOf[p.to]) return pickHealthy(dataOf[p.to]);
+    return undefined;   // reached a data store
+  };
+
+  const advance = (p, dt) => {
+    if (p.dying !== undefined) { p.dying += dt; return; }
+    if (isDown(p.to)) { p.dying = 0; return; }
+    p.t += (dt * 16) / length(p.from, p.to);
+    if (p.t < 1) return;
+    const hop = nextHop(p);
+    if (hop === undefined) { p.done = true; return; }
+    if (hop === null) { p.t = 1; p.dying = 0; return; }
+    p.from = p.to; p.to = hop; p.t = 0;
+  };
+
+  const chaos = () => {
+    if (clock - lastChaos < 16) return;
+    const id = randomOf(["gw-a", "gw-b", "db-1", "db-2", "cache", "queue", ...services]);
+    Object.assign(health[id], { target: 0, until: clock + 9 });
+    lastChaos = clock;
+  };
+
+  const step = dt => {
+    clock += dt;
+    if (Math.random() < dt * 2.2) particles.push({ from: randomOf(users), to: "edge", t: 0, target: randomOf(services) });
+    Object.values(health).forEach(h => {
+      if (h.target === 0 && clock > h.until) h.target = 1;
+      h.now += Math.sign(h.target - h.now) * Math.min(Math.abs(h.target - h.now), dt * .4);
+    });
+    chaos();
+    particles.forEach(p => advance(p, dt));
+    particles = particles.filter(p => !p.done && !(p.dying > 3));
+  };
+
+  const bezier = (a, b) => {
+    const p0 = P(a), p3 = P(b), mx = (p0.x + p3.x) / 2;
+    ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.bezierCurveTo(mx, p0.y, mx, p3.y, p3.x, p3.y); ctx.stroke();
+  };
+
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = colors.faint; ctx.globalAlpha = .55;
+    edges.forEach(e => bezier(...e));
+
+    ctx.strokeStyle = colors.alert; ctx.setLineDash([2, 4]);
+    edges.forEach(([a, b]) => {
+      const hurt = 1 - Math.min(health[a].now, health[b].now);
+      if (hurt < .01) return;
+      ctx.globalAlpha = hurt * .3;
+      bezier(a, b);
+    });
+    ctx.setLineDash([]);
+
+    particles.forEach(p => {
+      const { x, y } = curve(p.from, p.to, Math.min(p.t, 1));
+      const dying = p.dying !== undefined;
+      ctx.fillStyle = dying ? colors.alert : colors.accent;
+      ctx.globalAlpha = dying ? .45 * (1 - p.dying / 3) : .5;
+      ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.fill();
+    });
+
+    Object.entries(nodes).forEach(([id, n]) => {
+      const { x, y } = P(id);
+      const hurt = 1 - health[id].now;
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = colors.paper;
+      ctx.strokeStyle = colors["ink-2"];
+      ctx.beginPath(); ctx.arc(x, y, n.user ? 2.5 : 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = .4; ctx.stroke();
+      if (hurt < .01) return;
+      ctx.globalAlpha = hurt * .45; ctx.fillStyle = colors.alert;
+      ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  };
+
+  const resize = () => {
+    const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const wide = W > 960;
+    box = wide
+      ? { x0: 32, x1: W - 32, y0: H * .1, y1: H * .92 }
+      : { x0: 16, x1: W - 16, y0: H * .08, y1: H - 24 };
+    if (reduceMotion || !running) draw();
+  };
+
+  const loop = (() => {
+    let last = 0;
+    const frame = now => {
+      if (!running) return;
+      step(Math.min((now - last) / 1000, .05)); last = now;
+      draw();
+      requestAnimationFrame(frame);
+    };
+    return { start: () => { if (running || reduceMotion) return; running = true; last = performance.now(); requestAnimationFrame(frame); }, stop: () => { running = false; } };
+  })();
+
+  const start = () => {
+    readColors(); resize();
+    for (let i = 0; i < 3600; i++) step(1 / 30);   // warm up so the map is never empty
+    draw();
+    new IntersectionObserver(([e]) => (e.isIntersecting ? loop.start() : loop.stop())).observe(canvas);
+  };
+  new ResizeObserver(resize).observe(canvas);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColors(); draw(); });
+  return { start, redraw: () => {} };
+})();
+
+/* ---------- Career trace ---------- */
+const NOW = 2026 + 9.5 / 12, START = 2015.5, END = 2027.1;
+const spans = [
+  { id: "udc", kind: "edu", start: 2015 + 8 / 12, end: 2019 + 6 / 12,
+    org: "Universidade da Coruña", role: { es: "Grado en Ingeniería Informática (impartido en inglés)", en: "BSc in Computer Engineering, taught in English" },
+    place: "A Coruña",
+    notes: { es: ["Algoritmos, sistemas operativos y arquitectura de computadores."], en: ["Algorithms, operating systems and computer architecture."] } },
+  { id: "netex", kind: "work", start: 2019 + 8 / 12, end: 2019 + 11.9 / 12,
+    org: "Netex Learning", role: { es: "Ingeniero de software, prácticas", en: "Software Engineer, internship" },
+    place: "Oleiros, A Coruña", skills: "PHP, Symfony",
+    notes: { es: ["Desarrollé nuevas funcionalidades para un ERP interno de varios módulos."], en: ["Extended the functionality of a multi-module internal ERP."] } },
+  { id: "upm", kind: "edu", start: 2020, end: 2021,
+    org: "Universidad Politécnica de Madrid", role: { es: "Máster en Desarrollo de Aplicaciones y Servicios Móviles", en: "MSc in Mobile Applications and Services" },
+    place: "Madrid",
+    notes: { es: ["Desarrollo nativo para Android, iOS y watchOS."], en: ["Native development for Android, iOS and watchOS."] } },
+  { id: "inditex", kind: "group", start: 2020 + 11 / 12, open: true,
+    org: "Inditex", role: { es: "A tiempo completo", en: "Full-time" }, place: "Arteixo, A Coruña" },
+  { id: "swe", parent: "inditex", kind: "work", start: 2021, end: 2022 + 6 / 12,
+    org: "Inditex", role: { es: "Ingeniero de software de eCommerce", en: "eCommerce Software Engineer" },
+    place: { es: "Híbrido", en: "Hybrid" }, skills: "Java, gRPC, …",
+    notes: { es: ["Desarrollé uno de los componentes de la plataforma de eCommerce."], en: ["Built a software component of the eCommerce platform."] } },
+  { id: "sre", parent: "inditex", kind: "work", start: 2022 + 6 / 12, end: 2026,
+    org: "Inditex", role: { es: "Site Reliability Engineer de eCommerce", en: "eCommerce Site Reliability Engineer" },
+    place: "Arteixo, A Coruña", skills: "Grafana, PromQL, …",
+    notes: {
+      es: ["Monitorizaba las plataformas de eCommerce de Inditex, con volúmenes de tráfico muy altos.", "Coordinaba la respuesta a incidentes entre equipos para resolverlos rápido y sin salirnos de los SLO.", "Diseñaba y ejecutaba pruebas de carga de millones de peticiones por minuto.", "Hacía pruebas de caos para detectar debilidades antes de que afectaran a los clientes.", "Organizaba Game Days para entrenar a los equipos de desarrollo en la gestión de incidentes de sus propios servicios."],
+      en: ["Monitored Inditex's high-traffic eCommerce platforms.", "Coordinated incident response across teams to resolve quickly and within SLOs.", "Designed and ran load tests at millions of requests per minute.", "Ran chaos tests to find weaknesses before customers did.", "Organized Game Days that trained teams to handle incidents in their own services."]
+    } },
+  { id: "head", parent: "inditex", kind: "current", start: 2026, open: true,
+    org: "Inditex", role: { es: "Responsable de Observabilidad de eCommerce", en: "Head of eCommerce Observability" },
+    place: "Arteixo, A Coruña",
+    notes: {
+      es: ["Defino el estándar de observabilidad para todo el eCommerce del grupo.", "Ayudo a los equipos de desarrollo a ganar madurez en observabilidad y en el escalado de incidentes.", "He definido el marco con el que gestionamos los incidentes, desde que se detectan hasta que se resuelven.", "Desarrollo las automatizaciones que dan soporte a todo esto."],
+      en: ["Define the observability standard for the group's eCommerce.", "Help development teams mature their observability and incident escalation.", "Design the incident management framework, from detection to resolution.", "Build the automation that supports all of it."]
+    } }
+];
+let selected = "head";
+
+const pct = t => ((t - START) / (END - START)) * 100;
+const pick = (v, l) => (typeof v === "string" ? v : v[l]);
+const endOf = s => s.end ?? NOW;
+const fmtDur = (s, c) => {
+  const n = Math.round((endOf(s) - s.start) * 12), y = Math.floor(n / 12), m = n % 12;
+  return [y && `${y} ${c.y}`, m && `${m} ${c.m}`].filter(Boolean).join(" ");
+};
+const fmtDate = t => `${String(Math.floor((t % 1) * 12 + 1e-6) + 1).padStart(2, "0")}/${Math.floor(t)}`;
+const fmtPeriod = (s, c) => `${fmtDate(s.start)} – ${s.end ? fmtDate(s.end) : c.present}`;
+
+function renderAxis() {
+  const years = [2016, 2018, 2020, 2022, 2024, 2026];
+  document.getElementById("ticks").innerHTML = years.map(y => `<span style="left:${pct(y)}%">${y}</span>`).join("");
+  document.getElementById("grid").innerHTML =
+    years.map(y => `<i style="left:${pct(y)}%"></i>`).join("") +
+    `<i class="today" style="left:${pct(NOW)}%"></i><b style="left:${pct(NOW)}%">${copy[lang].today}</b>`;
+}
+
+function detailHtml(s) {
+  const c = copy[lang];
+  const attrs = [[c.k.org, s.org], [c.k.role, pick(s.role, lang)], [c.k.place, pick(s.place, lang)], [c.k.period, fmtPeriod(s, c)], s.skills && [c.k.skills, s.skills]].filter(Boolean);
+  return `<div class="detail" id="d-${s.id}" ${selected === s.id ? "" : "hidden"}>
+      <dl class="attrs">${attrs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+      <ul class="notes">${s.notes[lang].map(n => `<li>${n}</li>`).join("")}</ul>
+    </div>`;
+}
+
+function rowHtml(s, i) {
+  const c = copy[lang];
+  const cls = ["bar", s.kind, s.open && "open"].filter(Boolean).join(" ");
+  const label = `<span class="txt"><span class="org">${s.parent ? pick(s.role, lang) : s.org}</span>${s.parent ? "" : `<span class="role">${pick(s.role, lang)}</span>`}</span>`;
+  const inner = `<span class="label">${label}</span>
+      <span class="lane"><span class="${cls}" style="left:${pct(s.start)}%;width:${pct(endOf(s)) - pct(s.start)}%;--delay:${i * 90}ms"></span></span>
+      <span class="dur">${fmtDur(s, c)}</span>`;
+  if (!s.notes) return `<div class="row">${inner}</div>`;
+  return `<button type="button" class="row${s.parent ? " child" : ""}" data-id="${s.id}" aria-expanded="${selected === s.id}" aria-controls="d-${s.id}">${inner}</button>${detailHtml(s)}`;
+}
+
+function renderTrace() {
+  const rows = document.getElementById("rows");
+  rows.querySelectorAll(".row, .detail").forEach(el => el.remove());
+  rows.insertAdjacentHTML("beforeend", spans.map(rowHtml).join(""));
+}
+
+function select(id) {
+  selected = selected === id ? null : id;
+  document.querySelectorAll("button.row").forEach(b => b.setAttribute("aria-expanded", String(b.dataset.id === selected)));
+  document.querySelectorAll(".detail").forEach(d => { d.hidden = d.id !== `d-${selected}`; });
+}
+
+function setLang(next) {
+  lang = next;
+  document.documentElement.lang = next;
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = copy[next][el.dataset.i18n]; });
+  document.querySelectorAll("[data-i18n-label]").forEach(el => el.setAttribute("aria-label", copy[next][el.dataset.i18nLabel]));
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === next)));
+  renderAxis();
+  renderTrace();
+  net.redraw();
+  try { localStorage.setItem("lang", next); } catch (_) {}
+}
+
+document.getElementById("rows").addEventListener("click", e => {
+  const row = e.target.closest("button.row");
+  if (row) select(row.dataset.id);
+});
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+const stored = (() => { try { return localStorage.getItem("lang"); } catch (_) { return null; } })();
+setLang(stored || (navigator.language.startsWith("es") ? "es" : "en"));
+/* The address is assembled here so it never appears in the HTML that scrapers read */
+const mail = atob("bW9jLmxhdGVyYm9jc2ljbmFyZkBhbG9o").split("").reverse().join("");
+document.querySelectorAll("[data-mail]").forEach(a => {
+  a.href = `mailto:${mail}`;
+  if (a.dataset.mail === "show") a.textContent = mail;
+});
+
+document.fonts.ready.then(net.start);
+</script>
+</body>
+</html>

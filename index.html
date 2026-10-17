@@ -271,6 +271,7 @@
   .dur { font-family: var(--mono); font-size: 13px; color: var(--ink-2); text-align: right; padding-right: 12px; white-space: nowrap; }
 
   .detail { display: grid; grid-template-columns: minmax(240px, 30%) 1fr; padding: 20px 12px 28px; border-bottom: 1px solid var(--rule); }
+  .detail { position: relative; background: var(--paper); }
   .detail[hidden] { display: none; }
   .attrs { font-family: var(--mono); font-size: 13px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-content: start; padding-right: 24px; }
   .attrs dt { color: var(--ink-2); }
@@ -316,6 +317,8 @@
     .axis, .grid-lines { grid-template-columns: 0 1fr 84px; }
     .row { grid-template-areas: "label label" "lane dur"; grid-template-columns: 1fr 84px; min-height: 0; padding: 6px 0; }
     .label { grid-area: label; padding: 6px 8px 0; }
+    .label { background: var(--paper); border-radius: 8px 8px 0 0; }
+    .row:hover .label, .row[aria-expanded="true"] .label { background: none; }
     .label .org, .label .role { white-space: normal; }
     .row.child .label { padding-left: 24px; }
     .row.child .label::before { display: none; }
@@ -414,7 +417,7 @@
       <span class="dur">4 m</span></button>
 <div class="detail" id="d-netex" hidden="">
       <dl class="attrs"><dt>empresa</dt><dd>Netex Learning</dd><dt>puesto</dt><dd>Ingeniero de software, prácticas</dd><dt>lugar</dt><dd>Oleiros, A Coruña</dd><dt>periodo</dt><dd>09/2019 – 12/2019</dd><dt>tecnologías</dt><dd>PHP, Symfony</dd></dl>
-      <ul class="notes"><li>Desarrollé nuevas funcionalidades para un ERP interno de varios módulos.</li></ul>
+      <ul class="notes"><li>Desarrollo de nuevas funcionalidades para un ERP interno de varios módulos.</li></ul>
     </div>
 <button type="button" class="row" data-id="upm" aria-expanded="false" aria-controls="d-upm"><span class="label"><span class="txt"><span class="org">Universidad Politécnica de Madrid</span><span class="role">Máster en Desarrollo de Aplicaciones y Servicios Móviles</span></span></span>
       <span class="lane"><span class="bar edu" style="left:38.79310344827617%;width:8.620689655172477%;--delay:180ms"></span></span>
@@ -431,7 +434,7 @@
       <span class="dur">1 a 6 m</span></button>
 <div class="detail" id="d-swe" hidden="">
       <dl class="attrs"><dt>empresa</dt><dd>Inditex</dd><dt>puesto</dt><dd>Ingeniero de software de eCommerce</dd><dt>lugar</dt><dd>Híbrido</dd><dt>periodo</dt><dd>01/2021 – 07/2022</dd><dt>tecnologías</dt><dd>Java, gRPC, …</dd></dl>
-      <ul class="notes"><li>Desarrollé uno de los componentes de la plataforma de eCommerce.</li></ul>
+      <ul class="notes"><li>Desarrollo de uno de los componentes de la plataforma de eCommerce.</li></ul>
     </div>
 <button type="button" class="row child" data-id="sre" aria-expanded="false" aria-controls="d-sre"><span class="label"><span class="txt"><span class="org">Site Reliability Engineer de eCommerce</span></span></span>
       <span class="lane"><span class="bar work" style="left:60.34482758620737%;width:30.172413793103686%;--delay:450ms"></span></span>
@@ -445,7 +448,7 @@
       <span class="dur">10 m</span></button>
 <div class="detail" id="d-head">
       <dl class="attrs"><dt>empresa</dt><dd>Inditex</dd><dt>puesto</dt><dd>Responsable de Observabilidad de eCommerce</dd><dt>lugar</dt><dd>Arteixo, A Coruña</dd><dt>periodo</dt><dd>01/2026 – actualidad</dd></dl>
-      <ul class="notes"><li>Defino el estándar de observabilidad para todo el eCommerce del grupo.</li><li>Ayudo a los equipos de desarrollo a ganar madurez en observabilidad y en el escalado de incidentes.</li><li>He definido el marco con el que gestionamos los incidentes, desde que se detectan hasta que se resuelven.</li><li>Desarrollo las automatizaciones que dan soporte a todo esto.</li></ul>
+      <ul class="notes"><li>Definición del estándar de observabilidad para todo el eCommerce del grupo.</li><li>Acompañamiento a los equipos de desarrollo para ganar madurez en observabilidad y en el escalado de incidentes.</li><li>Definición del marco de gestión de incidentes, desde su detección hasta su resolución.</li><li>Desarrollo de las automatizaciones que dan soporte a todo lo anterior.</li></ul>
     </div>
         </div>
         <div class="legend" aria-hidden="true">
@@ -684,7 +687,7 @@ const spans = [
   { id: "netex", kind: "work", start: 2019 + 8 / 12, end: 2019 + 11.9 / 12,
     org: "Netex Learning", role: { es: "Ingeniero de software, prácticas", en: "Software Engineer, internship" },
     place: "Oleiros, A Coruña", skills: "PHP, Symfony",
-    notes: { es: ["Desarrollé nuevas funcionalidades para un ERP interno de varios módulos."], en: ["Extended the functionality of a multi-module internal ERP."] } },
+    notes: { es: ["Desarrollo de nuevas funcionalidades para un ERP interno de varios módulos."], en: ["Extended the functionality of a multi-module internal ERP."] } },
   { id: "upm", kind: "edu", start: 2020, end: 2021,
     org: "Universidad Politécnica de Madrid", role: { es: "Máster en Desarrollo de Aplicaciones y Servicios Móviles", en: "MSc in Mobile Applications and Services" },
     place: "Madrid",
@@ -694,7 +697,7 @@ const spans = [
   { id: "swe", parent: "inditex", kind: "work", start: 2021, end: 2022 + 6 / 12,
     org: "Inditex", role: { es: "Ingeniero de software de eCommerce", en: "eCommerce Software Engineer" },
     place: { es: "Híbrido", en: "Hybrid" }, skills: "Java, gRPC, …",
-    notes: { es: ["Desarrollé uno de los componentes de la plataforma de eCommerce."], en: ["Built a software component of the eCommerce platform."] } },
+    notes: { es: ["Desarrollo de uno de los componentes de la plataforma de eCommerce."], en: ["Built a software component of the eCommerce platform."] } },
   { id: "sre", parent: "inditex", kind: "work", start: 2022 + 6 / 12, end: 2026,
     org: "Inditex", role: { es: "Site Reliability Engineer de eCommerce", en: "eCommerce Site Reliability Engineer" },
     place: "Arteixo, A Coruña", skills: "Grafana, PromQL, …",
@@ -706,7 +709,7 @@ const spans = [
     org: "Inditex", role: { es: "Responsable de Observabilidad de eCommerce", en: "Head of eCommerce Observability" },
     place: "Arteixo, A Coruña",
     notes: {
-      es: ["Defino el estándar de observabilidad para todo el eCommerce del grupo.", "Ayudo a los equipos de desarrollo a ganar madurez en observabilidad y en el escalado de incidentes.", "He definido el marco con el que gestionamos los incidentes, desde que se detectan hasta que se resuelven.", "Desarrollo las automatizaciones que dan soporte a todo esto."],
+      es: ["Definición del estándar de observabilidad para todo el eCommerce del grupo.", "Acompañamiento a los equipos de desarrollo para ganar madurez en observabilidad y en el escalado de incidentes.", "Definición del marco de gestión de incidentes, desde su detección hasta su resolución.", "Desarrollo de las automatizaciones que dan soporte a todo lo anterior."],
       en: ["Define the observability standard for the group's eCommerce.", "Help development teams mature their observability and incident escalation.", "Design the incident management framework, from detection to resolution.", "Build the automation that supports all of it."]
     } }
 ];

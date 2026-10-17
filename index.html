@@ -797,6 +797,7 @@ function setLang(next) {
   renderAxis();
   renderTrace();
   net.redraw();
+  renderMail();
   try { localStorage.setItem("lang", next); } catch (_) {}
 }
 
@@ -809,12 +810,15 @@ document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click
 const stored = (() => { try { return localStorage.getItem("lang"); } catch (_) { return null; } })();
 const browserLang = navigator.language.slice(0, 2);
 setLang(copy[stored] ? stored : copy[browserLang] ? browserLang : "en");
-/* The address is assembled here so it never appears in the HTML that scrapers read */
-const mail = atob("bW9jLmxhdGVyYm9jc2ljbmFyZkBhbG9o").split("").reverse().join("");
-document.querySelectorAll("[data-mail]").forEach(a => {
-  a.href = `mailto:${mail}`;
-  if (a.dataset.mail === "show") a.textContent = mail;
-});
+/* The address is assembled here so it never appears in the HTML that scrapers read; the Galician page greets with "ola" */
+function renderMail() {
+  const hola = atob("bW9jLmxhdGVyYm9jc2ljbmFyZkBhbG9o").split("").reverse().join("");
+  const mail = lang === "gl" ? hola.slice(1) : hola;
+  document.querySelectorAll("[data-mail]").forEach(a => {
+    a.href = `mailto:${mail}`;
+    if (a.dataset.mail === "show") a.textContent = mail;
+  });
+}
 
 document.fonts.ready.then(net.start);
 </script>

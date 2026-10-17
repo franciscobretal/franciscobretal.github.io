@@ -28,6 +28,7 @@
 <meta property="og:url" content="https://franciscobretal.com/">
 <meta property="og:site_name" content="Francisco Bretal">
 <meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="gl_ES">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:image" content="https://franciscobretal.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -342,6 +343,7 @@
         <span>franciscobretal.com</span>
         <div class="lang" role="group" aria-label="Idioma / Language">
           <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="gl" aria-pressed="false">GL</button>
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
         </div>
       </header>
@@ -494,6 +496,24 @@ const copy = {
     contactTitle: "Contacto",
     k: { org: "empresa", role: "puesto", place: "lugar", period: "periodo", skills: "tecnologías" },
     present: "actualidad", y: "a", m: "m"
+  },
+  gl: {
+    lead: "Enxeñeiro de software especializado en rendemento, resiliencia e arquitectura. Encárgome de que os sistemas estean sempre dispoñibles: defino a súa observabilidade e os seus SLO, e axudo os equipos de desenvolvemento a aplicar boas prácticas.",
+    now: "Responsable de Observabilidade de eCommerce en Inditex",
+    email: "Correo",
+    contactSub: "Para asuntos profesionais, podes escribirme por correo ou atoparme en LinkedIn.",
+    practiceTitle: "En que traballo",
+    p1t: "Observabilidade", p1: "Definir os SLI e SLO que indican se un servizo funciona ben, e montar as ferramentas para vixialos sen que ninguén acabe afogado en alertas.",
+    p2t: "Rendemento", p2: "Probas de carga de millóns de peticións por minuto e, despois, traballo cos equipos de desenvolvemento para ver onde se perde o tempo e recuperalo.",
+    p3t: "Resiliencia", p3: "Probas de caos para dar cos puntos débiles antes de que o fagan os clientes, e Game Days para que cada equipo saiba reaccionar cando falla o seu servizo.",
+    p4t: "Arquitectura", p4: "Deseñar sistemas que se poidan medir e entender desde o primeiro día, con límites claros e pensando de antemán en como poden fallar.",
+    careerTitle: "Traxectoria",
+    careerSub: "Onde traballei e estudei ata agora.",
+    legendGroup: "empresa", legendWork: "posto", legendNow: "posto actual", legendEdu: "formación",
+    today: "hoxe",
+    contactTitle: "Contacto",
+    k: { org: "empresa", role: "posto", place: "lugar", period: "período", skills: "tecnoloxías" },
+    present: "actualidade", y: "a", m: "m"
   },
   en: {
     lead: "Software engineer specializing in performance, resilience and architecture. I make sure systems stay up: I define their observability and SLOs, and help development teams adopt best practices.",
@@ -682,35 +702,37 @@ const net = (() => {
 const NOW = 2026 + 9.5 / 12, START = 2015.5, END = 2027.1;
 const spans = [
   { id: "udc", kind: "edu", start: 2015 + 8 / 12, end: 2019 + 6 / 12,
-    org: "Universidade da Coruña", role: { es: "Grado en Ingeniería Informática (impartido en inglés)", en: "BSc in Computer Engineering, taught in English" },
+    org: "Universidade da Coruña", role: { es: "Grado en Ingeniería Informática (impartido en inglés)", gl: "Grao en Enxeñaría Informática (impartido en inglés)", en: "BSc in Computer Engineering, taught in English" },
     place: "A Coruña",
-    notes: { es: ["Algoritmos, sistemas operativos y arquitectura de computadores."], en: ["Algorithms, operating systems and computer architecture."] } },
+    notes: { es: ["Algoritmos, sistemas operativos y arquitectura de computadores."], gl: ["Algoritmos, sistemas operativos e arquitectura de computadores."], en: ["Algorithms, operating systems and computer architecture."] } },
   { id: "netex", kind: "work", start: 2019 + 8 / 12, end: 2019 + 11.9 / 12,
-    org: "Netex Learning", role: { es: "Ingeniero de software, prácticas", en: "Software Engineer, internship" },
+    org: "Netex Learning", role: { es: "Ingeniero de software, prácticas", gl: "Enxeñeiro de software, prácticas", en: "Software Engineer, internship" },
     place: "Oleiros, A Coruña", skills: "PHP, Symfony",
-    notes: { es: ["Desarrollo de nuevas funcionalidades para un ERP interno de varios módulos."], en: ["Extended the functionality of a multi-module internal ERP."] } },
+    notes: { es: ["Desarrollo de nuevas funcionalidades para un ERP interno de varios módulos."], gl: ["Desenvolvemento de novas funcionalidades para un ERP interno de varios módulos."], en: ["Extended the functionality of a multi-module internal ERP."] } },
   { id: "upm", kind: "edu", start: 2020, end: 2021,
-    org: "Universidad Politécnica de Madrid", role: { es: "Máster en Desarrollo de Aplicaciones y Servicios Móviles", en: "MSc in Mobile Applications and Services" },
+    org: "Universidad Politécnica de Madrid", role: { es: "Máster en Desarrollo de Aplicaciones y Servicios Móviles", gl: "Máster en Desenvolvemento de Aplicacións e Servizos Móbiles", en: "MSc in Mobile Applications and Services" },
     place: "Madrid",
-    notes: { es: ["Desarrollo nativo para Android, iOS y watchOS."], en: ["Native development for Android, iOS and watchOS."] } },
+    notes: { es: ["Desarrollo nativo para Android, iOS y watchOS."], gl: ["Desenvolvemento nativo para Android, iOS e watchOS."], en: ["Native development for Android, iOS and watchOS."] } },
   { id: "inditex", kind: "group", start: 2020 + 11 / 12, open: true,
-    org: "Inditex", role: { es: "A tiempo completo", en: "Full-time" }, place: "Arteixo, A Coruña" },
+    org: "Inditex", role: { es: "A tiempo completo", gl: "A tempo completo", en: "Full-time" }, place: "Arteixo, A Coruña" },
   { id: "swe", parent: "inditex", kind: "work", start: 2021, end: 2022 + 6 / 12,
-    org: "Inditex", role: { es: "Ingeniero de software de eCommerce", en: "eCommerce Software Engineer" },
-    place: { es: "Híbrido", en: "Hybrid" }, skills: "Java, gRPC, …",
-    notes: { es: ["Desarrollo de uno de los componentes de la plataforma de eCommerce."], en: ["Built a software component of the eCommerce platform."] } },
+    org: "Inditex", role: { es: "Ingeniero de software de eCommerce", gl: "Enxeñeiro de software de eCommerce", en: "eCommerce Software Engineer" },
+    place: { es: "Híbrido", gl: "Híbrido", en: "Hybrid" }, skills: "Java, gRPC, …",
+    notes: { es: ["Desarrollo de uno de los componentes de la plataforma de eCommerce."], gl: ["Desenvolvemento dun dos compoñentes da plataforma de eCommerce."], en: ["Built a software component of the eCommerce platform."] } },
   { id: "sre", parent: "inditex", kind: "work", start: 2022 + 6 / 12, end: 2026,
-    org: "Inditex", role: { es: "Site Reliability Engineer de eCommerce", en: "eCommerce Site Reliability Engineer" },
+    org: "Inditex", role: { es: "Site Reliability Engineer de eCommerce", gl: "Site Reliability Engineer de eCommerce", en: "eCommerce Site Reliability Engineer" },
     place: "Arteixo, A Coruña", skills: "Grafana, PromQL, …",
     notes: {
       es: ["Monitorización de las plataformas de eCommerce de Inditex, con volúmenes de tráfico muy elevados.", "Coordinación de la respuesta a incidentes entre equipos, para resolverlos con rapidez y dentro de los SLO.", "Diseño y ejecución de pruebas de carga de millones de peticiones por minuto.", "Pruebas de caos para detectar debilidades antes de que afecten a los clientes.", "Organización de Game Days para formar a los equipos de desarrollo en la gestión de incidentes de sus propios servicios."],
+      gl: ["Monitorización das plataformas de eCommerce de Inditex, con volumes de tráfico moi elevados.", "Coordinación da resposta a incidentes entre equipos, para resolvelos con rapidez e dentro dos SLO.", "Deseño e execución de probas de carga de millóns de peticións por minuto.", "Probas de caos para detectar debilidades antes de que afecten aos clientes.", "Organización de Game Days para formar os equipos de desenvolvemento na xestión de incidentes dos seus propios servizos."],
       en: ["Monitored Inditex's high-traffic eCommerce platforms.", "Coordinated incident response across teams to resolve quickly and within SLOs.", "Designed and ran load tests at millions of requests per minute.", "Ran chaos tests to find weaknesses before customers did.", "Organized Game Days that trained teams to handle incidents in their own services."]
     } },
   { id: "head", parent: "inditex", kind: "current", start: 2026, open: true,
-    org: "Inditex", role: { es: "Responsable de Observabilidad de eCommerce", en: "Head of eCommerce Observability" },
+    org: "Inditex", role: { es: "Responsable de Observabilidad de eCommerce", gl: "Responsable de Observabilidade de eCommerce", en: "Head of eCommerce Observability" },
     place: "Arteixo, A Coruña",
     notes: {
       es: ["Definición del estándar de observabilidad para todo el eCommerce del grupo.", "Acompañamiento a los equipos de desarrollo para ganar madurez en observabilidad y en el escalado de incidentes.", "Definición del marco de gestión de incidentes, desde su detección hasta su resolución.", "Desarrollo de las automatizaciones que dan soporte a todo lo anterior."],
+      gl: ["Definición do estándar de observabilidade para todo o eCommerce do grupo.", "Acompañamento aos equipos de desenvolvemento para gañar madurez en observabilidade e no escalado de incidentes.", "Definición do marco de xestión de incidentes, desde a súa detección ata a súa resolución.", "Desenvolvemento das automatizacións que dan soporte a todo o anterior."],
       en: ["Define the observability standard for the group's eCommerce.", "Help development teams mature their observability and incident escalation.", "Design the incident management framework, from detection to resolution.", "Build the automation that supports all of it."]
     } }
 ];
@@ -785,7 +807,8 @@ document.getElementById("rows").addEventListener("click", e => {
 document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
 const stored = (() => { try { return localStorage.getItem("lang"); } catch (_) { return null; } })();
-setLang(stored || (navigator.language.startsWith("es") ? "es" : "en"));
+const browserLang = navigator.language.slice(0, 2);
+setLang(copy[stored] ? stored : copy[browserLang] ? browserLang : "en");
 /* The address is assembled here so it never appears in the HTML that scrapers read */
 const mail = atob("bW9jLmxhdGVyYm9jc2ljbmFyZkBhbG9o").split("").reverse().join("");
 document.querySelectorAll("[data-mail]").forEach(a => {

@@ -142,7 +142,7 @@
   }
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
 
   /* Header */
   .top {
@@ -298,7 +298,7 @@
   }
   .contact .mail:hover, .contact .mail:focus-visible { background-size: 100% 3px; color: var(--accent); }
   .contact .social { margin-top: 32px; }
-  footer { padding-top: clamp(44px, 6vw, 64px); padding-bottom: calc(clamp(72px, 10vw, 112px) + env(safe-area-inset-bottom)); font-family: var(--mono); font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--rule); }
+  footer { padding-top: clamp(28px, 4vw, 40px); padding-bottom: calc(clamp(40px, 6vw, 64px) + env(safe-area-inset-bottom)); font-family: var(--mono); font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--rule); }
 
   @media (prefers-reduced-motion: no-preference) {
     .bar { animation: draw .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--delay, 0ms); }

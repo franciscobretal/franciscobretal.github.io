@@ -298,7 +298,7 @@
   }
   .contact .mail:hover, .contact .mail:focus-visible { background-size: 100% 3px; color: var(--accent); }
   .contact .social { margin-top: 32px; }
-  footer { padding-top: 28px; padding-bottom: 40px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--rule); }
+  footer { padding-top: clamp(32px, 5vw, 48px); padding-bottom: calc(clamp(48px, 8vw, 96px) + env(safe-area-inset-bottom)); font-family: var(--mono); font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--rule); }
 
   @media (prefers-reduced-motion: no-preference) {
     .bar { animation: draw .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--delay, 0ms); }
